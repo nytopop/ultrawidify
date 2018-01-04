@@ -454,6 +454,23 @@ var _res_computeOffsets = function(vidDim, playerDim){
     left: 0,
     top: ((playerDim.height - vidDim.height) / 2)
   }
+
+  if( offsets.top < 0) {
+    if(Debug.debug)
+	  console.log("[Resizer::_res_computeOffsets] video is netflix-level stupid, realigning properly");
+
+    // netflix why u making this happen
+	/*
+	 *
+	 * |----------------|
+	 * |                |  <- where netflix decides to show half the video
+	 * |----------------|
+	 * |                |
+	 * |                |  <- physical monitor
+	 * |----------------|
+	 * */
+    offsets.top = 0;
+  }
   
   if( Settings.miscFullscreenSettings.videoFloat == "center" ){
     offsets.left = (playerDim.width - vidDim.width ) / 2;
